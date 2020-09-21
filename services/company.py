@@ -137,7 +137,7 @@ Regards,
 Perilwise - Onboard.
         '''
         try:
-            send_mail([mail_id], "Company Onboard - Perilwise", msg)
+            send_mail([mail_id], "Insure.Co - Company Onboard", msg)
         except:
             return {"msg": f"Emailer failed. URL to submit form: {url}\nCompany Message Board: {board_url}", "form_url": url, "msg_board": board_url}, 400
         return {"msg": "Email Sent for the company contact"}, 200
