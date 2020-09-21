@@ -9,6 +9,7 @@ verify_ssl = true
 cryptography = "*"
 flask = "*"
 flask-restful = "*"
+flask-sqlalchemy = "*"
 
 [requires]
 python_version = "3.8"
