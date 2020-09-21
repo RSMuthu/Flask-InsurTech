@@ -3,7 +3,7 @@ import smtplib, hashlib, os, re
 from email.message import EmailMessage
 from cryptography.fernet import Fernet
 
-def send_mail(to, subject, msg, frm = "Perilwise Onboard <onboard@perilwise.com>", html = None):
+def send_mail(to, subject, msg, cc=[], frm = "Insure.Co <muthukumaranr95@gmail.com>", html = None):
     '''
     Send email with the given message and details...
 
@@ -22,7 +22,9 @@ def send_mail(to, subject, msg, frm = "Perilwise Onboard <onboard@perilwise.com>
     mail['Cc'] = cc
     if html:
         mail.add_alternative(html, subtype='html')
-    with smtplib.SMTP("localhost", 1025) as server:
+    with smtplib.SMTP("email-smtp.ap-south-1.amazonaws.com", 587) as server: # AWS SES configuration on Smtp Server  
+        server.starttls()
+        server.login("***********", "***************")
         server.send_message(mail)
 
 
