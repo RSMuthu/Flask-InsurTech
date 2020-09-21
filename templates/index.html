@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.18.0/js/md5.min.js"></script>
+<script src="static/js/login.js"></script>
+<title>Sign In</title>
+{% endblock %}
+
+{% block body %}
+<main role="main" class="jumbotron">
+  <div class="container">
+    	<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<div class="panel panel-login">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-xs-6" id="login-form-link" style="cursor:pointer;">
+								<strong><h3><center><a href="#" class="active" style="text-decoration: None;">Login</a></center></h3></strong>
+							</div>
+							<div class="col-xs-6" id="register-form-link" style="cursor:pointer;">
+								<strong><h3><center><a href="#" style="text-decoration: None;">Register</a></center></h3></strong>
+							</div>
+						</div>
+						<hr>
+					</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-lg-12">
+								<div id="login-form" role="form" style="display: block;">
+									<div class="form-group">
+										<input type="text" name="email" id="email" tabindex="1" class="form-control" placeholder="Email ID" value="">
+									</div>
+									<div class="form-group">
+										<input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
+									</div>
+									<div class="form-group">
+										<div class="row">
+											<div class="col-sm-6 col-sm-offset-3">
+                        <input type="submit" name="login-submit" id="login-submit" onclick="process_login()" tabindex="4" class="form-control btn btn-primary" value="Log In">
+												<button id="login-load" disabled hidden class="form-control btn btn-primary"><span class="spinner-border spinner-border-sm"></span> Please wait...</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div id="register-form" role="form" style="display: none;">
+									<div class="form-group">
+										<input type="email" name="email" id="email_reg" tabindex="1" class="form-control" placeholder="Email Address" value="">
+									</div>
+									<div class="form-group">
+										<input type="password" name="password" id="password_reg" tabindex="2" class="form-control" placeholder="Password">
+									</div>
+									<div class="form-group">
+										<input type="password" name="confirm-password" id="confirm_password" tabindex="2" class="form-control" placeholder="Confirm Password">
+									</div>
+									<div class="form-group">
+										<div class="row">
+											<div class="col-sm-6 col-sm-offset-3">
+												<input type="submit" name="register-submit" onclick="process_register()" id="register-submit" tabindex="4" class="form-control btn btn-success" value="Register Now">
+                        <button id="reg-load" disabled hidden class="form-control btn btn-success"><span class="spinner-border spinner-border-sm"></span> Please wait...</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</main>
+<script>
+  $(function() {
+    $('#login-form-link').click(function(e) {
+		$("#login-form").delay(50).fadeIn(50);
+ 		$("#register-form").fadeOut(100);
+		$('#register-form-link').removeClass('active');
+		$(this).addClass('active');
+		e.preventDefault();
+	});
+	$('#register-form-link').click(function(e) {
+		$("#register-form").delay(50).fadeIn(50);
+ 		$("#login-form").fadeOut(50);
+		$('#login-form-link').removeClass('active');
+		$(this).addClass('active');
+		e.preventDefault();
+	});
+
+});
+</script>
+{% endblock %}

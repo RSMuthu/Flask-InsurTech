@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Home</title>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
+{% endblock %}
+{% block nav_user %}
+
+  <a class="nav-item" onclick="logout()" href="#" style="color:#fff;" class="nav-item nav-link">Logout</a>
+{% endblock %}
+{% block body %}
+<br>
+<h2>Onboarding - DashBoard</h2>
+<hr>
+<main role="main" id="main" class="jumbotron Container" style="padding:2%;">
+  <div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4"><button data-toggle="modal" data-target="#inp" class="form-control btn btn-primary">+ New company</button></div>
+    <div class="col-md-4"></div>
+  </div>
+  <div id="content">
+  </div>
+  <!-- The Modal for adding company -->
+  <div class="modal fade" id="inp">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Add New Company</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body" id="creation">
+          <div class="form-group">
+            <div class="p-1 row">
+              <div class='col'><label for="c_name">Company Name </label></div>
+              <div class='col'><input type="text" class="form-control" id="c_name" placeholder="Enter Company Name"></div>
+            </div>
+            <div class="p-1 row">
+              <div class='col'><label for="c_addr">Company Address </label></div>
+              <div class='col'><textarea class="form-control" name="addr" id="c_addr" rows="3" placeholder="Enter Company Address"></textarea></div>
+            </div>
+            <div class="p-1 row">
+              <div class='col'><label for="contact_name">Contact Name </label></div>
+              <div class='col'><input type="text" class="form-control" id="contact_name" placeholder="Enter Contact Name"></div>
+            </div>
+            <div class="p-1 row">
+              <div class='col'><label for="contact_email">Contact Email </label></div>
+              <div class='col'><input type="email" class="form-control" id="contact_email" placeholder="Enter Contact Email"></div>
+            </div>
+            <div class="p-1 row">
+              <div class='col'><label for="product">Product </label></div>
+              <div class='col'>
+                <select name="product" class="custom-select form-control" id="product">
+                  <option value='' disabled selected>Select the Product</option>
+                  <option value="Car">Car</option>
+                  <option value="Bike">Bike</option>
+                  <option value="PA">PA</option>
+                  <option value="Travel">Travel</option>
+                  <option value="Health">Health</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" id="comp_create" class="btn btn-primary" onclick="create_company()">Create</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- The Modal for form display -->
+  <div class="modal fade" id="form_modal">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Form info</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div class="form-group">
+            <div class="p-1 row">
+              <div class='col'><label>Name of Service Provider</label></div>
+              <div class='col' id="serv_name"></div>
+            </div>
+            <div class="p-1 row">
+              <div class='col'><label>Constitution of provider</label></div>
+              <div class='col' id="constituion"></div>
+            </div>
+            <div class="p-1 row">
+              <div class='col'><label>Scope of service</label></div>
+              <div class='col' id="scope"></div>
+            </div>
+            <div class="p-1 row">
+              <div class='col'><label>Is Service Provide an Indian entity</label></div>
+              <div class='col' id='is_indian'></div>
+            </div>
+            <div class="p-1 row">
+              <div class='col'><label>How Service Provider manages its software services/products with respect to licensing</label></div>
+              <div class='col' id='how_sp'></div>
+            </div>
+            <div class="p-1 row">
+              <div class='col'><label>Specify, On Software project agreement, whether source code will be got by BAGIC or not</label></div>
+              <div class='col' id='src_code'></div>
+            </div>
+            <div class="p-1 row">
+              <div class='col'><label>Service Provider provides its services with his employees to work - Onsite/Offsite/Both</label></div>
+              <div class='col' id='site'></div>
+            </div>
+            <div class="p-1 row">
+              <div class='col'><label>Are Commercials Approved</label></div>
+              <div class='col' id='commercial'></div>
+            </div>
+            <div class="p-1 row">
+              <div class='col'><label>Period of Agreement (in Years)</label></div>
+              <div class='col' id='time'></div>
+            </div>
+            <div class="p-1 row">
+              <div class='col'><label>Is autorenewal of term of Agreement exists and agreed by competent authority</label></div>
+              <div class='col' id='auto_renew'></div>
+            </div>
+            <div class="p-1 row">
+              <div class='col'><label>Any other specific Conditions agreed with the Vendor/Service Provider</label></div>
+              <div class='col' id='extra'></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+<script src="static/js/dashboard.js"></script>
+{% endblock %}

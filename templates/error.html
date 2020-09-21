@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>{{ data.err }}</title>
+{% endblock %}
+
+{% block body %}
+<main role="main">
+  <div class="jumbotron">
+    <center>
+    <h1 class="display-1">{{ data.err }}</h1>
+    <p class="lead">{{ data.msg }}</p>
+    </center>
+  </div>
+</main>
+{% endblock %}

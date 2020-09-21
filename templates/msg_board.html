@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
+<title>Msg Board - {{ data.c_name }}</title>
+{% endblock %}
+
+{% block body %}
+<br>
+  <h2>{{ data.c_name }}  Msg Board</h2>
+<hr>
+<main role="main">
+    <input type="text" id="cid" value="{{ data.c_id }}" hidden>
+    <div class="container jumbotron" style="padding: 2%;">
+      <div class="form-group" style="padding:0% 20%">
+        <div class="p-1 row">
+          <div class='col-md-3'><label class for="name">Company Name </label></div>
+          <div class='col-md-9'><input type="text" class="form-control" value="{{ data.c_name }}" disabled></div>
+        </div>
+        <div class="p-1 row">
+          <div class='col-md-3'><label class for="product">Product </label></div>
+          <div class='col-md-9'><input type="text" class="form-control" value="{{ data.product }}" disabled></div>
+        </div>
+        <div class="p-1 row">
+          <div class='col-md-3'><label class for="name">Name </label></div>
+          <div class='col-md-9'><input type="text" class="form-control" id="name" placeholder="Enter your name"></div>
+        </div>
+        <div class="p-1 row">
+          <div class='col-md-3'><label class for="msg">Message</label></div>
+          <div class='col-md-9'><textarea class="form-control" name="msg" id="msg" rows="3" placeholder="Enter your message"></textarea></div>
+        </div>
+        <div class="p-2 row">
+          <div class="col"></div>
+          <div class="col"><button type="button" class="form-control btn btn-primary" onclick="send_msg()">Send</button></div>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+            <div class="col-md-3">
+                <button type="checkbox" class="form-control btn btn-success" id="auto">Enable Auto Refresh</button>
+            </div>
+            <div class="col-md-9"><input type="text" id="tsearch" class="form-control" placeholder="Search in Conversation ..."></div>
+      </div>
+      <div class="row" id="msg_content" style="padding:2%;width:100%"></div>
+    </div>
+</main>
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+<script src="/static/js/msg_board.js"></script>
+{% endblock %}

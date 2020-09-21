@@ -1,0 +1,174 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Form Fill - {{ data.c_name }}</title>
+{% endblock %}
+
+{% block body %}
+<br>
+<h2>{{ data.c_name }} - Form Fill</h2>
+<hr>
+<main role="main" id="main">
+    <div class="container jumbotron" style="padding:3%;">
+      <div class="form-group">
+        <div class="p-2 row">
+          <div class='col'><label class for="service_provider">Name of Service Provider</label></div>
+          <div class='col'><input type="text" class="form-control" id="serv_name" placeholder="Enter name of Service Provider"></div>
+        </div>
+        <div class="p-2 row">
+          <div class='col'><label class for="constitution">Constitution of provider </label></div>
+          <div class='col'><input type="text" class="form-control" id="constituion" placeholder="Enter constitution of service provider"></div>
+        </div>
+        <div class="p-2 row">
+          <div class='col'><label class for="scope">Scope of service </label></div>
+          <div class='col'><input type="text" class="form-control" id="scope" placeholder="Enter the scope of service"></div>
+        </div>
+        <div class="p-2 row">
+          <div class='col'><label class for="is_indian">Is Service Provide an Indian entity</label></div>
+          <div class='col'>
+            <select class="form-control" id="is_indian">
+              <option value="" selected disabled>Select one..</option>
+              <option value="Yes">Yes</option><option value="No">No</option>
+            </select>
+          </div>
+        </div>
+        <div class="p-2 row">
+          <div class='col'><label class for="how_sp">How Service Provider manages its software services/products with respect to licensing </label></div>
+          <div class='col'><input type="text" class="form-control" id="how_sp" placeholder="Detail on management of services"></div>
+        </div>
+        <div class="p-2 row">
+          <div class='col'><label class for="src_code">Specify, On Software project agreement, whether source code will be got by BAGIC or not </label></div>
+          <div class='col'>
+            <select class="form-control" id="src_code">
+              <option value="" selected disabled>Select one..</option>
+              <option value="Yes">Yes</option><option value="No">No</option>
+            </select>
+          </div>
+        </div>
+        <div class="p-2 row">
+          <div class='col'><label class for="site">Service Provider provides its services with his employees to work - Onsite/Offsite/Both </label></div>
+          <div class='col'>
+            <select class="form-control" id="site">
+              <option value="" selected disabled>Select one..</option>
+              <option value="Onsite">Onsite</option><option value="Offsite">Offsite</option><option value="Both">Both</option>
+            </select>
+          </div>
+        </div>
+        <div class="p-2 row">
+          <div class='col'><label class for="commercial">Are Commercials Approved </label></div>
+          <div class='col'>
+            <select class="form-control" id="commercial">
+              <option value="" selected disabled>Select one..</option>
+              <option value="Yes">Yes</option><option value="No">No</option>
+            </select>
+          </div>
+        </div>
+        <div class="p-2 row">
+          <div class='col'><label class for="time">Period of Agreement (in Years)</label></div>
+          <div class='col'><input type="number" class="form-control" id="time" placeholder="Enter the years of Agreement"></div>
+        </div>
+        <div class="p-2 row">
+          <div class='col'><label class for="auto_renew">Is autorenewal of term of Agreement exists and agreed by competent authority </label></div>
+          <div class='col'>
+            <select class="form-control" id="auto_renew">
+              <option value="" selected disabled>Select one..</option>
+              <option value="Yes">Yes</option><option value="No">No</option>
+            </select>
+          </div>
+        </div>
+        <div class="p-2 row">
+          <div class='col'><label class for="extra">Any other specific Conditions agreed with the Vendor/Service Provider </label></div>
+          <div class='col'>
+            <select class="form-control" id="extra" onchange="add_tarea()">
+              <option value="" selected disabled>Select one..</option>
+              <option value="Yes">Yes</option><option value="No">No</option>
+            </select>
+            <textarea id="other" class="form-control" placeholder="Please specify the other conditions here.." disabled hidden></textarea>
+          </div>
+        </div>
+        <div class="p-2 row">
+          <div class='col'></div>
+          <div class='col'><button id="send" onclick="send_form()" class="form-control btn btn-primary">Submit</button></div>
+          <div class='col'></div>
+      </div>
+    </div>
+</main>
+<script>
+  function add_tarea() {
+    // to add a text area if any extra condition need to be specified.
+    var extra = $("#extra option:selected").val()
+    if (extra == "Yes") {
+      document.getElementById('other').removeAttribute("disabled");
+      document.getElementById('other').removeAttribute("hidden");
+    }
+    if (extra == "No") {
+      document.getElementById('other').setAttribute("disabled", '');
+      document.getElementById('other').setAttribute("hidden", '');
+    }
+  }
+
+  function send_form() {
+    // this wil help to submit the form entered by contact person.
+    var serv_name = $("#serv_name").val().trim();
+    var constituion = $("#constituion").val().trim();
+    var scope = $("#scope").val().trim();
+    var is_indian = $("#is_indian option:selected").val();
+    var how_sp = $("#how_sp").val().trim();
+    var time = $("#time").val().trim();
+    var src_code = $("#src_code option:selected").val();
+    var site = $("#site option:selected").val();
+    var commercial = $("#commercial option:selected").val();
+    var auto_renew = $("#auto_renew option:selected").val();
+    var extra = $("#extra option:selected").val();
+    var other = $("#other").val().trim();
+    if (serv_name == '' || constituion == '' || commercial == '' || scope == '' || is_indian == '' || how_sp == '' || time == '' || src_code == '' || site == '' || auto_renew =='' || extra ==''){
+      // validation error case
+      alert("Please provide entry for all the fields ... ");
+      return;
+    }
+
+    if ( extra == "Yes" && other == '') {
+      // validation error case
+      alert("Please provide the other specific conditions agreed with Vendor...");
+      return;
+    }
+    if (time < 0) {
+      // validation error case
+      alert("Please enter valid agreement time");
+      return
+    }
+    var fdata = {};
+    fdata["serv_name"] = serv_name;
+    fdata["constituion"] = constituion;
+    fdata["commercial"] = commercial;
+    fdata["scope"] = scope;
+    fdata["is_indian"] = is_indian;
+    fdata["how_sp"] = how_sp;
+    fdata["time"] = time;
+    fdata["src_code"] = src_code;
+    fdata["site"] = site;
+    fdata["auto_renew"] = auto_renew;
+    fdata["extra"] = extra;
+    fdata["other"] = other;
+
+  $.ajax({
+    dataType  : 'json',
+    data : JSON.stringify({
+        id: {{ data.id }},
+        form_data : fdata
+      }),
+      method : 'PUT',
+      url : '/company',
+      contentType: "application/json",
+      success: function(response) {
+        document.getElementById('main').innerHTML = '<div class="jumbotron"><center><h2 class="display-2">Thanks for Submitting ...</h1></center></div>';
+        console.log(response);
+      },
+      error: function(error) {
+        console.log(error);
+        alert(error.msg);
+      }
+    });
+  }
+</script>
+{% endblock %}
