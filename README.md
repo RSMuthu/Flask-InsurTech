@@ -1,7 +1,7 @@
 # Flask-InsurTech
 
 Working site:
-http://ec2-13-126-87-254.ap-south-1.compute.amazonaws.com/
+http://ec2-13-126-87-254.ap-south-1.compute.amazonaws.com/ (Undeployed for personal reasons)
 
 This is a InsurTech based site - a simple and basic work done in a short span of 3 days.
 Well commented (to the most of the parts).
